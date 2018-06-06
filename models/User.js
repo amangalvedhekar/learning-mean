@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 
-const securityQuestions = new mongoose.Schema({
-  question: String,
-});
-
-
 const userSchema = new mongoose.Schema({
   email: String,
   userPassword: String,
