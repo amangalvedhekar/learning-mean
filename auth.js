@@ -18,7 +18,7 @@ const register = (req, res) => {
 };
 
 const comparePasswords = (err, isMatch, res) => {
-  if(!isMatch) {
+  if (!isMatch) {
     return isMatch
       .status(401)
       .send({
@@ -55,12 +55,12 @@ const login = async (req, res) => {
         [res]
       )
     );
-  } catch(e) {
+  } catch (e) {
     return res
       .status(404)
       .send({
-      message: 'User Not found'
-    });
+        message: 'User Not found'
+      });
   }
 
 };
