@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const UserInformationSchema = new mongoose.Schema({
+const userInformationSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   middleName: String,
@@ -10,3 +10,8 @@ const UserInformationSchema = new mongoose.Schema({
     ref: 'User'
   }
 });
+
+module.exports = mongoose.model(
+  'UserInformation',
+  userInformationSchema
+);

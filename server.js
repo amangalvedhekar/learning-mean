@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const User = require('./models/User');
+const SecuirtyQuestion = require('./models/Securityquestion');
 const auth = require('./auth');
 
 mongoose.Promise = Promise;
@@ -21,7 +22,7 @@ app.get('/posts', (req, res) => {
   res.send(posts);
 });
 
-app.get('/users', async (req, res) => {
+const getUsers = async (req, res) => {
   try {
     const users = await User.find({}, '-userPassword -__v');
     res.status(200).send(users);
@@ -29,7 +30,22 @@ app.get('/users', async (req, res) => {
     console.log('error in getting user list', e);
     res.status(500).send(e)
   }
-});
+};
+
+const saveSecurityQuestion = (req, res) => {
+  const securityQuestion = new SecuirtyQuestion(req.body);
+  securityQuestion.save((err, result) => {
+    if(err) {
+      res.status(500).send({message: 'something went wrong'});
+    }else {
+      res.status(200).send(securityQuestion);
+    }
+  });
+};
+
+app.get('/users', getUsers);
+
+app.post('/security-question', saveSecurityQuestion);
 
 app.get('/profile/:id', async (req, res) => {
   try {
